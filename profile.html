@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ademola Omisakin | Software & AI Engineer</title>
+  <meta name="description" content="Full-stack, AI & Blockchain engineer with 5+ years experience."/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-alt: #f7f7f7;
+      --card: #ffffff;
+      --text: #111;
+      --text-muted: #666;
+      --accent: #0d6efd;
+      --accent-dark: #0b5ed7;
+      --shadow: rgba(0,0,0,.08);
+      --radius: 12px;
+      --transition: .3s ease;
+    }
+    [data-theme="dark"] {
+      --bg: #0f0f0f;
+      --bg-alt: #181818;
+      --card: #1e1e1e;
+      --text: #fafafa;
+      --text-muted: #aaa;
+      --shadow: rgba(0,0,0,.4);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Inter", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
+    }
+    a { color: var(--accent); text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .container { width: 90%; max-width: 1100px; margin: auto; }
+
+    /* NAV */
+    nav {
+      position: fixed; inset: 0 0 auto 0;
+      padding: .75rem 0;
+      background: var(--card);
+      box-shadow: 0 2px 8px var(--shadow);
+      z-index: 1000;
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .theme-toggle, .menu-toggle { background: none; border: none; font-size: 1.25rem; cursor: pointer; color: var(--text); }
+
+    /* HERO CAROUSEL */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: .15;
+      z-index: -1;
+      animation: zoom 20s infinite alternate;
+    }
+    @keyframes zoom { from { transform: scale(1); } to { transform: scale(1.1); } }
+    .carousel {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      animation: slide 15s infinite;
+    }
+    .carousel img {
+      width: 100%; height: 100%; object-fit: cover; flex-shrink: 0;
+    }
+    @keyframes slide {
+      0%, 28% { transform: translateX(0); }
+      33%, 61% { transform: translateX(-100%); }
+      66%, 94% { transform: translateX(-200%); }
+      100% { transform: translateX(0); }
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: var(--text);
+      max-width: 600px;
+      padding: 1rem;
+    }
+    .hero-img {
+      width: 140px; height: 140px; border-radius: 50%; border: 4px solid var(--accent);
+      margin: 0 auto 1rem;
+      object-fit: cover;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: .75rem 1.75rem;
+      border-radius: 50px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .btn:hover { background: var(--accent-dark); transform: translateY(-2px); }
+
+    /* SECTIONS */
+    section { padding: 4rem 0; }
+    section:nth-of-type(even) { background: var(--bg-alt); }
+    h2 { margin-bottom: 1.5rem; position: relative; }
+    h2::after {
+      content: ''; position: absolute; left: 0; bottom: -6px;
+      width: 60px; height: 3px; background: var(--accent); border-radius: 3px;
+    }
+
+    /* TIMELINE */
+    .timeline {
+      position: relative; padding-left: 1.5rem;
+    }
+    .timeline::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 2px; background: var(--accent);
+    }
+    .timeline li {
+      list-style: none; margin-bottom: 2rem; position: relative;
+      opacity: 0; transform: translateY(30px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .timeline li.show { opacity: 1; transform: none; }
+    .timeline li::before {
+      content: ''; position: absolute; left: -1.5rem; top: .2rem;
+      width: .75rem; height: .75rem; background: var(--accent); border-radius: 50%;
+    }
+
+    /* PROJECTS GRID */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 4px 14px var(--shadow);
+      transition: transform var(--transition);
+    }
+    .project-card:hover { transform: translateY(-6px); }
+    .project-card img { height: 160px; width: 100%; object-fit: cover; }
+    .project-card .body { padding: 1rem; }
+
+    /* FOOTER */
+    footer { text-align: center; padding: 2rem 1rem; color: var(--text-muted); }
+
+    /* RESPONSIVE NAV */
+    @media (max-width: 600px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; inset: 60px 0 auto auto; background: var(--card); padding: 1rem 2rem; border-radius: var(--radius); box-shadow: 0 4px 14px var(--shadow); }
+      .nav-links.show { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav>
+  <div class="container nav-inner">
+    <a href="#hero" class="logo">Ademola</a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <button class="theme-toggle" id="theme-toggle" title="Toggle dark mode"><i class="fas fa-moon"></i></button>
+      <span class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></span>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header id="hero" class="hero">
+  <!-- carousel images -->
+  <div class="carousel">
+    <img src="assets/hero1.jpg" alt="Code on screen">
+    <img src="assets/hero2.jpg" alt="Blockchain network">
+    <img src="assets/hero3.jpg" alt="AI data visualization">
+  </div>
+  <div class="hero-content">
+    <img class="hero-img" src="assets/ademola.jpg" alt="Ademola Omisakin"/>
+    <h1>Ademola Omisakin</h1>
+    <p>Software & AI Engineer | Blockchain Specialist | Community Builder</p>
+    <a href="assets/cv.pdf" target="_blank" class="btn">Download CV</a>
+  </div>
+</header>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="container">
+    <h2>About Me</h2>
+    <p>
+      I’m a results-driven engineer with 5 years designing, developing and deploying AI, blockchain and full-stack applications for fintechs, agritech start-ups and NGOs. When I’m not coding, you’ll find me running financial-literacy workshops and mentoring students across Nigerian universities.
+    </p>
+  </div>
+</section>
+
+<!-- ================= EXPERIENCE ================= -->
+<section id="experience">
+  <div class="container">
+    <h2>Professional Experience</h2>
+    <ul class="timeline">
+      <li>
+        <strong>Blockchain Engineer (Contractor)</strong> – Remote<br/>
+        <span class="date">Jan 2023 – Present</span><br/>
+        • Develop and maintain blockchain solutions for various clients using Rust, Go, and Python.<br/>
+        • Implemented smart contracts and dApps on Ethereum and Solana.<br/>
+        • Conducted security audits and applied best-practice safeguards.<br/>
+        • Integrated blockchain modules into existing fintech and supply-chain systems.<br/>
+        • Designed custom consensus algorithm for a private blockchain, cutting energy use by 60 %.<br/>
+        • Mentored junior developers in blockchain technologies and best practices.
+      </li>
+      <li>
+        <strong>Machine Learning Engineer</strong> – GROW (Lagos / Remote)<br/>
+        <span class="date">Jul 2022 – Apr 2023</span><br/>
+        • Built ML systems that improved crop-yield predictions by 30 %.<br/>
+        • Deployed a recommendation engine for optimal fertilizer pricing.<br/>
+        • Weather-prediction model reached 85 % accuracy.<br/>
+        • Co-designed farmer-facing dashboard; platform adoption rose 50 %.<br/>
+        • Continuous dataset selection & experimentation to boost performance.
+      </li>
+      <li>
+        <strong>Data Scientist (Freelance)</strong> – Fiverr<br/>
+        <span class="date">Oct 2021 – Feb 2022</span><br/>
+        • Delivered 5-star data-science solutions across 20+ projects.<br/>
+        • Predictive models improved client decision accuracy by 25 % on average.<br/>
+        • Churn-prediction model reduced telecom churn by 15 %.<br/>
+        • Sentiment-analysis tool boosted campaign effectiveness by 40 %.<br/>
+        • E-commerce recommender lifted cross-sell revenue by 30 %.<br/>
+        • Created advanced visualizations for non-technical stakeholders.
+      </li>
+      <li>
+        <strong>HTML / CSS Designer (Freelance)</strong> – Upwork<br/>
+        <span class="date">Jul 2021 – Dec 2021</span><br/>
+        • Front-end support for multiple client websites.<br/>
+        • Responsive, visually appealing layouts with 40 % faster load times.<br/>
+        • WCAG 2.1 accessibility compliance.<br/>
+        • Reusable CSS components sped up future builds by 25 %.
+      </li>
+      <li>
+        <strong>Engineering Intern</strong> – Control Systems International (CSI), Lagos<br/>
+        <span class="date">Jun 2020 – Mar 2021</span><br/>
+        • Installation & maintenance of industrial measurement & control systems.<br/>
+        • Contributed to process-automation R&D.<br/>
+        • Automated weekly maintenance reports with Python, saving 10 h/week.<br/>
+        • Supported rollout of IoT remote-diagnostic monitors for downstream depots.
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= PROJECT GALLERY ================= -->
+<section id="projects">
+  <div class="container">
+    <h2>Project Gallery</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <img src="assets/proj_yield.jpg" alt="Crop Yield Predictor">
+        <div class="body">
+          <h3>Crop-Yield Predictor</h3>
+          <p>PyTorch + satellite imagery → 30 % accuracy boost for farmers.</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="assets/proj_consensus.jpg" alt="Energy-Efficient Consensus">
+        <div class="body">
+          <h3>Private Blockchain Consensus</h3>
+          <p>Custom PoA algorithm cutting energy use by 60 %.</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="assets/proj_dashboard.jpg" alt="Farmer Dashboard">
+        <div class="body">
+          <h3>Farmer Analytics Dashboard</h3>
+          <p>React + FastAPI portal used by 5 k+ growers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+  <div class="container" style="text-align:center">
+    <h2>Contact</h2>
+    <p>
+      <a href="mailto:Aoluwar@gmail.com"><i class="fas fa-envelope"></i> Aoluwar@gmail.com</a> &nbsp;
+      <a href="https://linkedin.com/in/ademola-olarotimi" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">© <span id="year">2024</span> Ademola Omisakin</div>
+</footer>
+
+<script>
+/* Dark mode */
+const toggle = document.getElementById('theme-toggle');
+const html = document.documentElement;
+const icon = toggle.querySelector('i');
+const saved = localStorage.getItem('theme');
+if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  html.setAttribute('data-theme', 'dark');
+  icon.className = 'fas fa-sun';
+}
+toggle.addEventListener('click', () => {
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  icon.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+  localStorage.setItem('theme', isDark ? 'light' : 'dark');
+});
+
+/* Mobile menu */
+document.getElementById('menu-toggle').addEventListener('click', () => {
+  document.getElementById('nav-links').classList.toggle('show');
+});
+
+/* Scroll reveal */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('show'));
+}, { threshold: 0.2 });
+document.querySelectorAll('.timeline li').forEach(el => observer.observe(el));
+
+/* Footer year */
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
